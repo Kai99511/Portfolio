@@ -86,7 +86,37 @@ function drawAll() {
 
 }
 
+//ブロックの衝突判定
+function checkMove(mx, my) {
+    for (let y = 0; y < TETRO_SIZE; y++) {
+        for (let x = 0; x < TETRO_SIZE; x++) {
+            let nx = tetro_x + mx + x;
+            let ny = tetro_y + my + y;
+            if (tetro[y][x]) {
+                if (field[ny][nx] ||
+                    ny < 0 ||
+                    nx < 0 ||
+                    ny >= FIELD_ROW ||
+                    nx >= FIELD_COL) {
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
+}
 
+//テトロミノ回転
+function rotate() {
+    let ntetro = [];
+    for (let y = 0; y < TETRO_SIZE; y++) {
+        ntetro[y] = [];
+        for (let x = 0; x < TETRO_SIZE; x++) {
+            ntetro[y][x] = tetro[TETRO_SIZE - x - 1][y];
+        }
+    }
+    return ntetro;
+}
 
 
 //キーボード処理
@@ -94,18 +124,19 @@ document.onkeydown = function (e) {
     //onkeydown keycode 検索
     switch (e.key) {
         case 'ArrowLeft': // 左
-            tetro_x--;
+            if (checkMove(-1, 0)) tetro_x--;
             break;
         case 'ArrowUp': // 上
-            tetro_y--;
+            if (checkMove(0, -1)) tetro_y--;
             break;
         case 'ArrowRight': // 右
-            tetro_x++;
+            if (checkMove(1, 0)) tetro_x++;
             break;
         case 'ArrowDown': // 下
-            tetro_y++;
+            if (checkMove(0, 1)) tetro_y++;
             break;
         case ' ': // スペース
+            tetro = rotate();
             break;
     }
 
