@@ -13,7 +13,7 @@ const SCREEN_H = BLOCK_SIZE * FIELD_ROW;
 const TETRO_SIZE = 4;
 
 //落ちるスピード
-const GAMESPEED = 500;
+const GAMESPEED = 1000;
 
 let can = document.getElementById("can");
 let con = can.getContext("2d");
