@@ -117,10 +117,7 @@ function init() {
         }
 
     }
-    //test
-    // field[5][8] = 1;
-    // field[19][0] = 1;
-    // field[19][9] = 1;
+
 }
 
 
