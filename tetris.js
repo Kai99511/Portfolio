@@ -6,7 +6,7 @@ const FIELD_ROW = 20;
 const BLOCK_SIZE = 30;
 
 //キャンバスサイズ
-const SCREEN_W = BLOCK_SIZE * FIELD_COL;
+const SCREEN_W = BLOCK_SIZE * FIELD_COL;ちょっと直した
 const SCREEN_H = BLOCK_SIZE * FIELD_ROW;
 
 //ゲームフィールドの位置
@@ -14,12 +14,10 @@ const OFFSET_X = 40;
 const OFFSET_Y = 20;
 
 //テトロミノのサイズ
-const TETRO_SIZE = 4
-;
+const TETRO_SIZE = 4;
 
 //落ちるスピード
 const GAMESPEED = 1000;
-// let speed = 50;
 
 //スタート位置
 const START_X = FIELD_COL / 2 - TETRO_SIZE / 2
