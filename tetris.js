@@ -6,7 +6,7 @@ const FIELD_ROW = 20;
 const BLOCK_SIZE = 30;
 
 //キャンバスサイズ
-const SCREEN_W = BLOCK_SIZE * FIELD_COL;ちょっと直した
+const SCREEN_W = BLOCK_SIZE * FIELD_COL;
 const SCREEN_H = BLOCK_SIZE * FIELD_ROW;
 
 //ゲームフィールドの位置
@@ -139,8 +139,7 @@ function setTetro() {
     //ネクストを現在のテトロにする
     tetro_t = tetro_n;
     tetro = TETRO_TYPES[tetro_t];
-    tetro_n = Math.floor(Math.random(
-    ) * (TETRO_TYPES.length - 1)) + 1;
+    tetro_n = Math.floor(Math.random() * (TETRO_TYPES.length - 1)) + 1;
 
     //位置を初期値にする
     tetro_x = START_X;
@@ -164,7 +163,7 @@ function drawAll() {
     con.drawImage(BGimg, 0, 0);
 
     //フィールド枠描画
-    con.strokeStyle = "rgba(130,40,255,2)"//フィールド内枠
+    con.strokeStyle = "rgba(130,40,255,2)"//フィールド枠
     con.strokeRect(OFFSET_X - 2, OFFSET_Y - 2, SCREEN_W + 4, SCREEN_H + 4);
     con.fillStyle = "rgba(0,0,0,0.4)"//フィールド内
     con.fillRect(OFFSET_X, OFFSET_Y, SCREEN_W, SCREEN_H);
@@ -174,8 +173,6 @@ function drawAll() {
         for (let x = 0; x < FIELD_COL; x++) {
             if (field[y][x]) {
                 drawBlock(x, y, field[y][x]);
-            }
-            else {
             }
         }
     }
@@ -187,6 +184,8 @@ function drawAll() {
     for (let y = 0; y < TETRO_SIZE; y++) {
         for (let x = 0; x < TETRO_SIZE; x++) {
             if (tetro[y][x]) {
+                //着地点
+                drawBlock(tetro_x + x, tetro_y + y + plus, 0);
                 //本体
                 drawBlock(tetro_x + x, tetro_y + y, tetro_t);
             }
@@ -201,12 +200,11 @@ function drawAll() {
 
 //インフォメーション表示
 function drawInfo() {
-
     con.fillStyle = "white";
 
     s = "NEXT"
     con.font = "50px'Impact'";
-    con.fillText(s, 410, 120);
+    con.fillText(s, 412, 120);
 
     s = "SCORE";
     con.font = "50px'Impact'";
@@ -218,7 +216,7 @@ function drawInfo() {
     s = "LINES";
     con.font = "50px'Impact'";
     w = con.measureText(s).width;
-    con.fillText(s, 410, 525);
+    con.fillText(s, 414, 525);
     s = "" + lines;
     w = con.measureText(s).width;
     con.fillText(s, 560 - w, 600);
@@ -226,7 +224,7 @@ function drawInfo() {
     //ゲームオーバー
     if (over) {
         s = 'GAME OVER';
-        con.font = `50px'ＭＳゴシック'`;
+        con.font = `70px'Impact'`;
         w = con.measureText(s).width;
         let x = SCREEN_W / 2 - w / 2;
         let y = SCREEN_H / 2 - 20;
@@ -287,7 +285,6 @@ function dropTetoro() {
     if (over) return;
     if (checkMove(0, 1)) tetro_y++;
     else {
-
         fixTetro();
         checkLine();
         setTetro();
@@ -327,6 +324,18 @@ function checkLine() {
         score += 100 * (2 ** (linec - 1));
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
