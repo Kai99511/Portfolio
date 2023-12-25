@@ -25,6 +25,7 @@ const START_Y = 0;
 
 let can = document.getElementById("can");
 let con = can.getContext("2d");
+const container = document.getElementById('container');
 
 can.width = 640;
 can.height = 640;
@@ -110,6 +111,8 @@ let lines = 0;
 //スコア
 let score = 0;
 
+let gameInterval;
+
 tetro_t = Math.floor(Math.random() * (TETRO_TYPES.length - 1)) + 1;
 tetro = TETRO_TYPES[tetro_t];
 
@@ -125,13 +128,15 @@ function init() {
             field[y][x] = 0;
         }
     }
+    finish();
     //最初のテトロのためのネクスト処理
     tetro_n = Math.floor(Math.random() * (TETRO_TYPES.length - 1)) + 1;
-     
+
     //テトロをセットし描画して開始
-    setTetro()
+    setTetro();
     drawAll();
-    setInterval(dropTetoro, GAMESPEED);
+    gameInterval = setInterval(dropTetoro, GAMESPEED);
+
 }
 
 //テトロをネクストで初期化
@@ -325,19 +330,29 @@ function checkLine() {
     }
 }
 
+function restartGame() {
+    container.removeChild(startbutton);
+    over = false;
+    lines = 0;
+    score = 0;
+    for (let y = 0; y < FIELD_ROW; y++) {
+        field[y] = [];
+        for (let x = 0; x < FIELD_COL; x++) {
+            field[y][x] = 0;
+        }
+    }
+    setTetro();
+    drawAll();
+    clearInterval(gameInterval);
+    gameInterval = setInterval(dropTetoro, GAMESPEED);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
+function finish() {
+    startbutton = document.createElement('button');
+    startbutton.textContent = 'リスタート';
+    startbutton.addEventListener('click', restartGame);
+    container.appendChild(startbutton);
+}
 
 //キーボード処理
 document.onkeydown = function (e) {
@@ -362,8 +377,8 @@ document.onkeydown = function (e) {
             if (checkMove(0, 0, ntetro)) tetro = ntetro;
             break;
     }
-
     drawAll();
 }
+
 
 
