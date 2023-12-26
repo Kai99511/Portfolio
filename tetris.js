@@ -80,11 +80,11 @@ const TETRO_TYPES =
 //画像と効果音
 let BGimg;
 BGimg = new Image();
-BGimg.src = "./img/BG.jpg";
+BGimg.src = "./images/BG.jpg";
 
 let Blimg;
 Blimg = new Image();
-Blimg.src = "./img/block.png";
+Blimg.src = "./images/block.png";
 
 //テトロミノ本体
 let tetro;
