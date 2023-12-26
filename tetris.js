@@ -113,6 +113,8 @@ let score = 0;
 
 let gameInterval;
 
+let startbutton;
+
 tetro_t = Math.floor(Math.random() * (TETRO_TYPES.length - 1)) + 1;
 tetro = TETRO_TYPES[tetro_t];
 
@@ -128,13 +130,13 @@ function init() {
             field[y][x] = 0;
         }
     }
-    finish();
     //最初のテトロのためのネクスト処理
     tetro_n = Math.floor(Math.random() * (TETRO_TYPES.length - 1)) + 1;
 
     //テトロをセットし描画して開始
     setTetro();
     drawAll();
+    clearInterval(gameInterval);
     gameInterval = setInterval(dropTetoro, GAMESPEED);
 
 }
@@ -172,7 +174,7 @@ function drawAll() {
     con.strokeRect(OFFSET_X - 2, OFFSET_Y - 2, SCREEN_W + 4, SCREEN_H + 4);
     con.fillStyle = "rgba(0,0,0,0.4)"//フィールド内
     con.fillRect(OFFSET_X, OFFSET_Y, SCREEN_W, SCREEN_H);
-
+    
     //フィールド描写
     for (let y = 0; y < FIELD_ROW; y++) {
         for (let x = 0; x < FIELD_COL; x++) {
@@ -237,6 +239,7 @@ function drawInfo() {
         con.strokeText(s, OFFSET_X + x, y);
         con.fillStyle = 'White';
         con.fillText(s, OFFSET_X + x, y);
+        finish();
     }
 }
 
@@ -345,6 +348,7 @@ function restartGame() {
     drawAll();
     clearInterval(gameInterval);
     gameInterval = setInterval(dropTetoro, GAMESPEED);
+    init();
 }
 
 function finish() {
